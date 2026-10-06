@@ -186,9 +186,11 @@ jobs:
         shell: bash
         run: |
           sed -i '/dpiAware/d' res/manifest.xml
+          # Le programme principal porte le nom interne de l'application (EchowaAssist) : l'installateur de RustDesk ne le renomme pas
+          mv ./rustdesk/rustdesk.exe ./rustdesk/EchowaAssist.exe
           pushd ./libs/portable
           pip3 install -r requirements.txt
-          python3 ./generate.py -f ../../rustdesk/ -o . -e ../../rustdesk/rustdesk.exe
+          python3 ./generate.py -f ../../rustdesk/ -o . -e ../../rustdesk/EchowaAssist.exe
           popd
           mkdir -p ./out
           mv ./target/release/rustdesk-portable-packer.exe ./out/Echowa-Assist-windows.exe
